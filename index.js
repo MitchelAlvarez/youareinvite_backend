@@ -37,7 +37,7 @@ app.get('/api/data', (req, res) => {
             return res.status(400).json({ error: 'Invalid num_invitados' });
         }
 
-        sql += ' WHERE num_invitados = ?';
+        sql += ' AND num_invitados = ?';
     }
 
     db.query(sql, num_invitados, (err, results) => {

@@ -27,7 +27,7 @@ db.connect((err) => {
 
 app.get('/api/data', (req, res) => {
     let num_invitados = req.query.num_invitados;
-    let sql = 'SELECT * FROM INV_Confirmacion';
+    let sql = 'SELECT c.invitado_id, i.nombre, c.num_invitados_max FROM INV_Confirmacion as c, INV_Invitados as i WHERE c.invitado_id = i.invitado_id';
 
     if (num_invitados) {
         // Asegúrate de que num_invitados es un número
@@ -55,7 +55,7 @@ app.listen(PORT, () => {
 
 app.post('/api/updateInvitados', (req, res) => {
     const { invitadoIdToUpdate, asistencia, numero_de_invitados } = req.body;
-    updateInvitados(invitadoIdToUpdate, asistencia, numero_de_invitados);
+    updateInvitados(db, invitadoIdToUpdate, asistencia, numero_de_invitados);
     res.json({ message: 'Invitados updated successfully' });
 });
 
